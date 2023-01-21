@@ -18,21 +18,22 @@ Future main() async {
   ));
 }
 
-Color yaziColor = const Color(0xFF342640);
-Color buttonArkaPlan = const Color(0xFF9E78E0);
-Color contextBackground = const Color(0xFFD9D9D9);
-Color contextColor = const Color(0xFF000000);
-Color appBackground = const Color(0xFFDAF2E1);
+const Color yaziColor =  Color(0xFF342640);
+const Color buttonArkaPlan =  Color(0xFF9E78E0);
+const Color contextBackground =  Color(0xFFD9D9D9);
+const Color contextColor =  Color(0xFF000000);
+const Color appBackground =  Color(0xFFDAF2E1);
 
 var fontName = GoogleFonts.milonga().copyWith(color: yaziColor);
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Zodia',
+      title: 'Burç Takibi',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: buttonArkaPlan,
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
           headline4: fontName,
           headline5: fontName,
           headline6: fontName,
+          subtitle1: fontName,
         ).apply(),
       ),
       debugShowCheckedModeBanner: false,

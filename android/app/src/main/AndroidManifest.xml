@@ -2,7 +2,7 @@
     package="com.example.gunluk_burc_app">
      <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="gunluk_burc_app"
+        android:label="Burç Takibi"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -33,7 +33,7 @@
             android:value="2" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-5844568370049195~2302759970"/>
+            android:value="ca-app-pub-7728946181381370~7211411651"/>
 
     </application>
 </manifest>

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:gunluk_burc_app/constants/context_extension.dart';
 
+import '../components/burc_context_view.dart';
 import '../main.dart';
 import '../service/ad_services.dart';
-import 'burc_view.dart';
 
 // ignore: must_be_immutable
 class BurcOzellikleri extends StatefulWidget {
@@ -59,7 +59,6 @@ class _BurcOzellikleriState extends State<BurcOzellikleri> {
               icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
               onPressed: () => Navigator.of(context).pop(),
             ),
-         
             bottom: TabBar(tabs: [
               ...burcOzellikTab.map((e) {
                 return Tab(
@@ -67,7 +66,7 @@ class _BurcOzellikleriState extends State<BurcOzellikleri> {
                     fit: BoxFit.contain,
                     child: Text(
                       e,
-                      style: Theme.of(context).textTheme.headline6?.copyWith(
+                      style: Theme.of(context).textTheme.subtitle1?.copyWith(
                           color: contextColor, fontSize: context.width / 30),
                     ),
                   ),
@@ -79,22 +78,22 @@ class _BurcOzellikleriState extends State<BurcOzellikleri> {
             children: [
               Expanded(
                 child: TabBarView(children: [
-                  getir(widget.whereCameFrom, "", () {
+                  getirBurcBilgi(widget.whereCameFrom, "", () {
                     setState(() {});
                   }, "ozellik"),
-                  getir(widget.whereCameFrom, "kadin", () {
+                  getirBurcBilgi(widget.whereCameFrom, "kadin", () {
                     setState(() {});
                   }, "ozellik"),
-                  getir(widget.whereCameFrom, "erkek", () {
+                  getirBurcBilgi(widget.whereCameFrom, "erkek", () {
                     setState(() {});
                   }, "ozellik"),
-                  getir(widget.whereCameFrom, "ask", () {
+                  getirBurcBilgi(widget.whereCameFrom, "ask", () {
                     setState(() {});
                   }, "ozellik"),
-                  getir(widget.whereCameFrom, "finans", () {
+                  getirBurcBilgi(widget.whereCameFrom, "finans", () {
                     setState(() {});
                   }, "ozellik"),
-                  getir(widget.whereCameFrom, "saglik", () {
+                  getirBurcBilgi(widget.whereCameFrom, "saglik", () {
                     setState(() {});
                   }, "ozellik"),
                 ]),
@@ -113,82 +112,3 @@ class _BurcOzellikleriState extends State<BurcOzellikleri> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-          /*
-                Tab(
-                child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Text(
-                    "Genel",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6
-                        ?.copyWith(color: contextColor),
-                  ),
-                ),
-              ),
-              Tab(
-                child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Text(
-                    "Kadın",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6
-                        ?.copyWith(color: contextColor),
-                  ),
-                ),
-              ),
-              Tab(
-                child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Text(
-                    "Erkek",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6
-                        ?.copyWith(color: contextColor),
-                  ),
-                ),
-              ),
-              Tab(
-                child: Text(
-                  "Aşk",
-                  style: Theme.of(context).textTheme.headline6?.copyWith(
-                      color: contextColor, fontSize: context.width / 28),
-                ),
-              ),
-              Tab(
-                child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Text(
-                    "Finans",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6
-                        ?.copyWith(color: contextColor),
-                  ),
-                ),
-              ),
-              Tab(
-                child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Text(
-                    "Sağlık",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6
-                        ?.copyWith(color: contextColor),
-                  ),
-                ),
-              ),
-              */
