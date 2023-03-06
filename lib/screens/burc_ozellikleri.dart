@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:gunluk_burc_app/constants/context_extension.dart';
+import 'package:gunluk_burc_app/service/sesli_okuma_servis.dart';
 
 import '../components/burc_context_view.dart';
 import '../main.dart';
@@ -28,12 +29,17 @@ class _BurcOzellikleriState extends State<BurcOzellikleri> {
     "Finans",
     "Sağlık"
   ];
-   BannerAd? _banner;
+  BannerAd? _banner;
   @override
   void initState() {
     super.initState();
     _createBannerAd();
+  }
 
+  @override
+  void dispose() {
+    sesli.sesliOku("", false);
+    super.dispose();
   }
 
   void _createBannerAd() {
@@ -45,70 +51,68 @@ class _BurcOzellikleriState extends State<BurcOzellikleri> {
       ..load();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 6,
       initialIndex: 0,
       child: Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            bottom: TabBar(tabs: [
-              ...burcOzellikTab.map((e) {
-                return Tab(
-                  child: FittedBox(
-                    fit: BoxFit.contain,
-                    child: Text(
-                      e,
-                      style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                          color: contextColor, fontSize: context.width / 30),
-                    ),
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          bottom: TabBar(tabs: [
+            ...burcOzellikTab.map((e) {
+              return Tab(
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Text(
+                    e,
+                    style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                        color: contextColor, fontSize: context.width / 30),
                   ),
-                );
-              })
-            ]),
-          ),
-          body: Column(
-            children: [
-              Expanded(
-                child: TabBarView(children: [
-                  getirBurcBilgi(widget.whereCameFrom, "", () {
-                    setState(() {});
-                  }, "ozellik"),
-                  getirBurcBilgi(widget.whereCameFrom, "kadin", () {
-                    setState(() {});
-                  }, "ozellik"),
-                  getirBurcBilgi(widget.whereCameFrom, "erkek", () {
-                    setState(() {});
-                  }, "ozellik"),
-                  getirBurcBilgi(widget.whereCameFrom, "ask", () {
-                    setState(() {});
-                  }, "ozellik"),
-                  getirBurcBilgi(widget.whereCameFrom, "finans", () {
-                    setState(() {});
-                  }, "ozellik"),
-                  getirBurcBilgi(widget.whereCameFrom, "saglik", () {
-                    setState(() {});
-                  }, "ozellik"),
-                ]),
-              ),
-            
-            ],
-          ),
-            bottomNavigationBar: _banner == null
+                ),
+              );
+            })
+          ]),
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: TabBarView(children: [
+                getirBurcBilgi(widget.whereCameFrom, "", () {
+                  setState(() {});
+                }, "ozellik"),
+                getirBurcBilgi(widget.whereCameFrom, "kadin", () {
+                  setState(() {});
+                }, "ozellik"),
+                getirBurcBilgi(widget.whereCameFrom, "erkek", () {
+                  setState(() {});
+                }, "ozellik"),
+                getirBurcBilgi(widget.whereCameFrom, "ask", () {
+                  setState(() {});
+                }, "ozellik"),
+                getirBurcBilgi(widget.whereCameFrom, "finans", () {
+                  setState(() {});
+                }, "ozellik"),
+                getirBurcBilgi(widget.whereCameFrom, "saglik", () {
+                  setState(() {});
+                }, "ozellik"),
+              ]),
+            ),
+          ],
+        ),
+        bottomNavigationBar: _banner == null
             ? Container()
             : Container(
                 margin: const EdgeInsets.only(bottom: 12),
                 height: 52,
                 child: AdWidget(ad: _banner!),
               ),
-          ),
+      ),
     );
   }
 }

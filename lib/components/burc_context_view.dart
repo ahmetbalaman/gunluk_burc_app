@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:gunluk_burc_app/components/sesli_okuma_button.dart';
 import 'package:gunluk_burc_app/constants/context_extension.dart';
@@ -6,7 +5,6 @@ import 'package:gunluk_burc_app/constants/context_extension.dart';
 import '../main.dart';
 import '../service/burc_parse_servis.dart';
 import '../service/metin_duzeltme.dart';
-import '../service/sesli_okuma_servis.dart';
 
 Widget contextMain(BuildContext context, List<String> data) {
   return Expanded(
@@ -44,7 +42,6 @@ Widget contextMain(BuildContext context, List<String> data) {
 }
 
 Widget mainScreen(List<String> data, BuildContext context) {
-  SesliOku sesli = SesliOku();
   return Expanded(
     child: Stack(
       children: [
@@ -58,15 +55,20 @@ Widget mainScreen(List<String> data, BuildContext context) {
                 children: [
                   Text(
                     data[0].toString(),
-                    style: Theme.of(context).textTheme.subtitle1?.copyWith(color: Colors.black),
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle1
+                        ?.copyWith(color: Colors.black),
                   ),
-                 SesliOkumaButon(secildi: (bool value) {
-                            if (value) {
-                              sesli.sesliOku( data[2], true);
-                            } else {
-                              sesli.sesliOku(data[2], false);
-                            }
-                          },)
+                  SesliOkumaButon(
+                    secildi: (bool value) {
+                      if (value) {
+                        sesli.sesliOku(data[2], true);
+                      } else {
+                        sesli.sesliOku(data[2], false);
+                      }
+                    },
+                  )
                 ],
               ),
             ),
@@ -78,7 +80,8 @@ Widget mainScreen(List<String> data, BuildContext context) {
   );
 }
 
-Widget getirBurcBilgi(String whereCameFrom, String hangi, Function() fonk, String site) {
+Widget getirBurcBilgi(
+    String whereCameFrom, String hangi, Function() fonk, String site) {
   return Column(
     children: [
       const SizedBox(
@@ -131,4 +134,3 @@ Widget getirBurcBilgi(String whereCameFrom, String hangi, Function() fonk, Strin
     ],
   );
 }
-

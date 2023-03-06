@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:gunluk_burc_app/screens/home_page.dart';
+import 'package:gunluk_burc_app/service/sesli_okuma_servis.dart';
 
 Future main() async {
   runApp(const MyApp());
@@ -18,17 +19,16 @@ Future main() async {
   ));
 }
 
-const Color yaziColor =  Color(0xFF342640);
-const Color buttonArkaPlan =  Color(0xFF9E78E0);
-const Color contextBackground =  Color(0xFFD9D9D9);
-const Color contextColor =  Color(0xFF000000);
-const Color appBackground =  Color(0xFFDAF2E1);
-
+const Color yaziColor = Color(0xFF342640);
+const Color buttonArkaPlan = Color(0xFF9E78E0);
+const Color contextBackground = Color(0xFFD9D9D9);
+const Color contextColor = Color(0xFF000000);
+const Color appBackground = Color(0xFFDAF2E1);
+SesliOku sesli = SesliOku();
 var fontName = GoogleFonts.milonga().copyWith(color: yaziColor);
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-  
 
   @override
   Widget build(BuildContext context) {
@@ -53,14 +53,15 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home: AnimatedSplashScreen(
-        splash: Image.asset("assets/logo2.png",),
+        splash: Image.asset(
+          "assets/logo2.png",
+        ),
         duration: 1800,
         splashIconSize: 280,
-        backgroundColor:buttonArkaPlan ,
-        nextScreen:const HomePage() ,
-
+        backgroundColor: buttonArkaPlan,
+        nextScreen: const HomePage(),
         splashTransition: SplashTransition.rotationTransition,
-        ),
+      ),
     );
   }
 }
