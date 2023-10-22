@@ -101,7 +101,12 @@ class _HomePageState extends State<HomePage> {
                   setState(() {
                     
                   });
-                }, child: Text("Ödüllü Reklam İzle",style: Theme.of(context).textTheme.subtitle1?.copyWith(color: Colors.white),))
+                }, child: Row(
+                  children: [
+                    Text("Ödüllü Reklam İzle",style: Theme.of(context).textTheme.subtitle1?.copyWith(color: Colors.white),),
+                    const Icon(Icons.play_circle)
+                  ],
+                ))
               ],
             )),
       ],
