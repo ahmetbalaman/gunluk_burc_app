@@ -1,9 +1,15 @@
+import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:gunluk_burc_app/components/navigate_components.dart';
 import 'package:gunluk_burc_app/components/snackbar_show.dart';
+import 'package:gunluk_burc_app/constants/myTheme.dart';
+import 'package:gunluk_burc_app/main.dart';
 import 'package:gunluk_burc_app/screens/burc_view.dart';
+import 'package:gunluk_burc_app/screens/developer_info_page.dart';
 import 'package:gunluk_burc_app/service/ad_services.dart';
+import 'package:gunluk_burc_app/service/theme_provider.dart';
+import 'package:provider/provider.dart';
 import '../components/buttons.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,8 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int firstOpening = 0;
-  Map burclar = {
+  final Map burclar = {
     "Kova": "kova",
     "Balık": "balik",
     "Koç": "koc",
@@ -28,91 +33,137 @@ class _HomePageState extends State<HomePage> {
     "Yay": "yay",
     "Oğlak": "oglak"
   };
-  RewardedAd? _rewardedAd;
-  int _rewardedScore = 0;
+
   @override
   void initState() {
     super.initState();
-    _createRewardedlAd();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Column(
-      children: [
-        Expanded(
-          flex: 14,
-          child: Center(
-            child: GridView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3, childAspectRatio: 3 / 4),
-              itemBuilder: (context, index) {
-                return burcButton(
-                  fonk: () {
-                    if (firstOpening == 0) {
-                      firstOpening++;
-                      navigateUstten(
-                          context,
-                          BurcViewPage(
-                              whereCameFrom:
-                                  burclar.entries.elementAt(index).value));
-                    } else {
-                      if (_rewardedScore > 0) {
-                        _rewardedScore--;
-                        setState(() {
-                          
-                        });
-                        navigateUstten(
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        final isDark = themeProvider.isDarkMode;
+
+        return Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+                onPressed: () {
+                  navigate(context, DeveloperInfo());
+                },
+                icon: Icon(
+                  Icons.info,
+                  color: isDark
+                      ? ThemeColors.darkAppBackground
+                      : ThemeColors.lightAppBackground,
+                )),
+            backgroundColor: isDark
+                ? ThemeColors.darkButtonArkaPlan
+                : ThemeColors.lightButtonArkaPlan,
+            title: Text(
+              "Burç Tabirim",
+              style: TextStyle(
+                color: isDark
+                    ? ThemeColors.darkContextColor
+                    : ThemeColors.lightContextColor,
+              ),
+            ),
+            actions: [
+              DayNightSwitcher(
+                isDarkModeEnabled: isDark,
+                onStateChanged: (isDarkModeEnabled) {
+                  themeProvider.toggleTheme();
+                },
+              ),
+            ],
+          ),
+          backgroundColor: isDark
+              ? ThemeColors.darkAppBackground
+              : ThemeColors.lightAppBackground,
+          body: Column(
+            children: [
+              Expanded(
+                flex: 14,
+                child: Center(
+                  child: GridView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      childAspectRatio: 3 / 4,
+                    ),
+                    itemBuilder: (context, index) {
+                      return burcButton(
+                        fonk: () {
+                          navigateUstten(
                             context,
                             BurcViewPage(
-                                whereCameFrom:
-                                    burclar.entries.elementAt(index).value));
-                      } else {
-                        snackBarGoster(context,
-                            "Lütfen puan kazanmak için ödüllü reklam izleyin.");
-                      }
-                    }
-                  },
-                  deger: Theme.of(context).textTheme.subtitle1?.copyWith(),
-                  baslik: index == 0
-                      ? "Kova"
-                      : burclar.entries.elementAt(index).key,
-                  foto: burclar.entries.elementAt(index).value,
-                );
-              },
-              itemCount: burclar.length,
-            ),
-          ),
-        ),
-        Expanded(
-            flex: 1,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  "Puanınız: ${_rewardedScore * 25}",
-                  style: Theme.of(context).textTheme.headline5,
+                              whereCameFrom:
+                                  burclar.entries.elementAt(index).value,
+                            ),
+                          );
+                        },
+                        deger: Theme.of(context).textTheme.subtitle1?.copyWith(
+                              color: isDark
+                                  ? ThemeColors.darkContextColor
+                                  : ThemeColors.lightContextColor,
+                            ),
+                        baslik: index == 0
+                            ? "Kova"
+                            : burclar.entries.elementAt(index).key,
+                        foto: burclar.entries.elementAt(index).value,
+                        isDark:
+                            isDark, // burcButton widget'ına tema durumunu iletiyoruz
+                      );
+                    },
+                    itemCount: burclar.length,
+                  ),
                 ),
-                ElevatedButton(onPressed: () {
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+// Güncellenmiş burcButton widget'ı
+
+
+/*
+Expanded odulluReklamButon(BuildContext context) {
+    return Expanded(
+        flex: 2,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              "Puanınız: ${_rewardedScore * 25}",
+              style: Theme.of(context).textTheme.headline5,
+            ),
+            ElevatedButton(
+                onPressed: () {
                   _showRewardedAd();
-                  setState(() {
-                    
-                  });
-                }, child: Row(
+                  setState(() {});
+                },
+                child: Row(
                   children: [
-                    Text("Ödüllü Reklam İzle",style: Theme.of(context).textTheme.subtitle1?.copyWith(color: Colors.white),),
+                    Text(
+                      "Ödüllü Reklam İzle",
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1
+                          ?.copyWith(color: Colors.black),
+                    ),
                     const Icon(Icons.play_circle)
                   ],
                 ))
-              ],
-            )),
-      ],
-    ));
+          ],
+        ));
   }
-
+  
   void _showRewardedAd() {
     if (_rewardedAd != null) {
       _rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
@@ -146,8 +197,7 @@ class _HomePageState extends State<HomePage> {
           });
         }));
   }
-}
-
+  */
 
 
 /*

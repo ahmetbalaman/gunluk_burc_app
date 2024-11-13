@@ -47,7 +47,15 @@
 	<true/>
 
 	<key>GADApplicationIdentifier</key>
-<string>ca-app-pub-5844568370049195~2302759970<string>
+	<string>ca-app-pub-1429686129018235~8076425472</string>
 
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+
+	<key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>https</string>
+        <string>mailto</string>
+    </array>
 </dict>
 </plist>

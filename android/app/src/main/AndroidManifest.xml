@@ -1,6 +1,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gunluk_burc_app">
      <uses-permission android:name="android.permission.INTERNET"/>
+    <queries>
+        <!-- Email -->
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+            <data android:scheme="mailto" />
+        </intent>
+        <!-- Browser -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
    <application
         android:label="Burç Takibi"
         android:name="${applicationName}"
@@ -33,7 +45,8 @@
             android:value="2" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-7728946181381370~7211411651"/>
+            android:value="ca-app-pub-1429686129018235~8076425472"/>
+
 
     </application>
 </manifest>
